@@ -29,7 +29,18 @@
 # $1 Message
 function pushover()
 {
-    local USER_MESSAGE="message=$(date -u "+%Y-%m-%d %H:%M:%S"): ${1-Message placeholder text}"
+    # Either msg text supplied by pipe, or as first parameter
+    local TEXT=${1:-$(</dev/stdin)}
+
+    # If we still haven't got any text, let's just send the PID
+    if [ -z "$TEXT" ]
+    then
+        TEXT="Message from PID: $$"
+    fi
+
+    local USER_MESSAGE="message=$(date -u "+%Y-%m-%d %H:%M:%S"): $TEXT"
+
+    #local USER_MESSAGE="message=$(date -u "+%Y-%m-%d %H:%M:%S"): ${1-Message placeholder text}"
 
     local PUSHOVER_RESPONSE=$(curl -s --form-string "token=$PO_APP_TOKEN" \
         --form-string "user=$PO_USER_TOKEN" \
@@ -44,6 +55,7 @@ function pushover()
 # A smart bit of trickery to see if this script is running as exe or as source
 if [[ "$0" == "$BASH_SOURCE" ]]; then
     # we haven't been sourced, so run as executable
-    pushover "$@"
+    pushover "$1"
+
     exit $?
 fi
