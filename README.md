@@ -1,6 +1,6 @@
-##notification-utils
+## notification-utils
 
-###About
+### About
 
 This repository contains a utility script for generating mobile notifications. The only supported service at the moment is the awesome, and free, [pushover.net](https://pushover.net). You will need an account at [pushover.net](https://pushover.net).
 
@@ -8,14 +8,14 @@ The script, imaginatively called **pushover**, can either be sourced in a script
 
 Responses from curl and [pushover.net](https://pushover.net) are sent to stdout.
 
-###Dependencies
+### Dependencies
 
 The following are requirements to use **pushover**:
 
 1. Requires an account at pushover.net;
 2. Requires curl.
 
-###Usage
+### Usage
 
 Install, configure and use **pushover** in the following way:
 
@@ -46,10 +46,10 @@ export PO_APP_TOKEN=<string from pushover.net>
 sudo cp notification-utils/scripts/pushover /usr/local/bin
 ```
 
-###Support and features
+### Support and features
 
 Ping me if you have any questions or requests.
 
-###License
+### License
 
 Distributed under the MIT License, see LICENSE file in the repository root for more information.
