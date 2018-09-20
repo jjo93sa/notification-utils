@@ -3,30 +3,48 @@
 # Title: pushover
 #
 # Description:
-#   Send messages using the Pushover service, pushover.net. An account is
-#   required to use this service.
+#   Send messages using the Pushover service, pushover.net.
+#
+# Dependencies:
+#   An account with pushover.net is required to use this script and their
+#   service. With your account, you must create two tokens: a User Token and an
+#   Application Token. No default values are provided and this script WILL
+#   exit if they are not set.
 #
 # Credits:  None
 #
 # Usage:
-#   Either source this script and call pushover() with the message as first arg.
-#    or
-#   Call this script directly with the message as first argument.
+#   You have two options:
+#
+#   (1) Source this script and either (a) call pushover() with your message as
+#   first argument or (b) pipe the message to the pushover function, for example
+#
+#     echo "my message" | pushover
+#
+#   (2) Call this script directly with a message as first argument.
+@
 #   Either way, two environment variables must exist and be non-empty:
+#
 #     PO_USER_TOKEN - the token used to identify the Pushover user;
 #     PO_APP_TOKEN  - the token used to distinguish the application.
+#
 #   If these are not set, the script exits and no push message is sent.
 #
-# Maintainer: dr.j.osborne@gmail.com
+# Maintainer:
+#    James Osborne, dr.j.osborne@gmail.com
 #
-# License: MIT, see LICENSE file in repository root
+# License:
+#   MIT, see LICENSE file in repository root
 #
 
+# Ensure we have the tokens needed for Pushover operation:
 : "${PO_USER_TOKEN:?PO_USER_TOKEN env var must be set to use PushOver service}"
-
 : "${PO_APP_TOKEN:?PO_APP_TOKEN env var must be set to use PushOver service}"
 
-# $1 Message
+# This function takes a message as the firt argument, or from a pipe, and sends
+# it via Pushover.
+# Parameters:
+# -- [$1 - message to send]
 function pushover()
 {
     # Either msg text supplied by pipe, or as first parameter
@@ -38,9 +56,9 @@ function pushover()
         TEXT="Message from PID: $$"
     fi
 
-    local USER_MESSAGE="message=$(date -u "+%Y-%m-%d %H:%M:%S"): $TEXT"
-
-    #local USER_MESSAGE="message=$(date -u "+%Y-%m-%d %H:%M:%S"): ${1-Message placeholder text}"
+    # Removed 2018-09-20: Pushover prepends date-time stamp so we don't need to
+    #local USER_MESSAGE="message=$(date -u "+%Y-%m-%d %H:%M:%S"): $TEXT"
+    local USER_MESSAGE="message=$TEXT"
 
     local PUSHOVER_RESPONSE=$(curl -s --form-string "token=$PO_APP_TOKEN" \
         --form-string "user=$PO_USER_TOKEN" \
@@ -56,6 +74,5 @@ function pushover()
 if [[ "$0" == "$BASH_SOURCE" ]]; then
     # we haven't been sourced, so run as executable
     pushover "$1"
-
     exit $?
 fi
