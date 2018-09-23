@@ -22,7 +22,7 @@
 #     echo "my message" | pushover
 #
 #   (2) Call this script directly with a message as first argument.
-@
+#
 #   Either way, two environment variables must exist and be non-empty:
 #
 #     PO_USER_TOKEN - the token used to identify the Pushover user;
