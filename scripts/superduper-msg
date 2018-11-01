@@ -1,0 +1,65 @@
+#!/bin/bash -
+#
+# Title:  superduper-msg.sh
+#
+# Description:
+#  Use pushover to notify when SuperDuper copy completes. Unfortunately, there
+#  seems to be no way to determine IF the SD copy has completed successfully.
+#
+# Dependencies:
+#   Requires pushover script, which itself requires an account with the
+#   Pushover service. See that script for more information. We assume pushover
+#   is located in the same directory as us, and if not, in /usr/local/bin.
+#
+# Credits:
+#   Got most of this idea from this blog post:
+#       https://oleb.net/blog/2018/01/superduper-last-backup-timestamp/
+#
+# Usage:
+#   Add the full path to this script in the SuperDuper "After copy" action as
+#   the shell script to run adter the copy completes.
+#
+# Maintainer:
+#   James Osborne (poshboy), dr.j.osborne@gmail.com
+#
+# Created:
+#   2018-10-30
+#
+# License:
+#   MIT License, see LICENSE file in repository root.
+#
+
+# Exit immediately on failure (-e), treat unset variables as error & exit (-u)
+# Use exit code right-most cmd exiting w/ non-zero status (pipefail)
+set -euo pipefail
+
+E_NO_PUSHOVER=2
+E_NUM_COMMAND=3
+REPO="https://github.com/jjo93sa/notification-utils.git"
+PUSHOVER_SCRIPT="/usr/local/bin/pushover"
+SD_USER="james"
+
+# Check pushover script exists where we expect it to be:
+
+if [ ! -e ${PUSHOVER_SCRIPT} ]; then
+    echo "${PUSHOVER_SCRIPT} not found. Install from ${REPO}"
+    exit $E_NO_PUSHOVER
+fi
+
+if [ ${#} -lt 5 ]; then
+    sudo -i -u ${SD_USER} ${PUSHOVER_SCRIPT} "${0} error: expected at least 5 arguments, but there are only ${#} arguments."
+    exit $E_NUM_COMMAND
+fi
+
+# From the SuperDuper! manual and above blog post:
+SOURCE_VOLUME=${1}
+#SOURCE_PATH=${2}
+DESTINATION_VOLUME=${3}
+#DESTINATION_PATH=${4}
+#BACKUP_SCRIPT=${5}
+# Optional:
+#DISK_IMAGE_NAME_IF_ANY=${6:-NONE}
+
+sudo -i -u ${SD_USER} ${PUSHOVER_SCRIPT} "SuperDuper copy of ${1} to ${3} completed - check log for errors!"
+
+exit $?
