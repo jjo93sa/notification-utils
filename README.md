@@ -9,6 +9,17 @@ This repository contains utility scripts for generating mobile notifications fro
 
 Other notification scripts and tools will be added to this repository as they are generated. The following sections describe how to set-up and use these scripts.
 
+### Installation
+
+All scripts can be installed (to ```/usr/local/bin```) thus:
+```
+sudo make install
+```
+Uninstallation is achieved thus:
+```
+sudo make uninstall
+```
+
 ### pushover
 
 #### Introduction
