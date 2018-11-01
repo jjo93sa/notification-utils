@@ -5,7 +5,7 @@
 This repository contains utility scripts for generating mobile notifications from a number of applications. The only supported messaging service (at the moment) is the awesome, and free, [pushover.net](https://pushover.net). You will need an account at [pushover.net](https://pushover.net). The following scripts exist:
 
 * pushover - a wrapper to send messages to the pushover service itself
-* superduper-msg - a script designed to be called by [SuperDuper!](https://www.shirt-pocket.com/SuperDuper/SuperDuperDescription.html) once a copys is complete
+* superduper-msg - a script designed to be called by [SuperDuper!](https://www.shirt-pocket.com/SuperDuper/SuperDuperDescription.html) once a copy is complete
 
 Other notification scripts and tools will be added to this repository as they are generated. The following sections describe how to set-up and use these scripts.
 
