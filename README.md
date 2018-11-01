@@ -69,7 +69,7 @@ Requires pushover, and assumes that pushover is installed in ```/usr/local/bin``
 
 Add the full path to ```superduper-msg``` in the SuperDuper copy configuration:
 
-![SuperDuper copy script configuration](https://github.com/jjo93sa/notification-utils/superduper-config.png)
+![SuperDuper copy script configuration](./superduper-config.png)
 
 ### Support and features
 
