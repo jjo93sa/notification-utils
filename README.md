@@ -2,20 +2,29 @@
 
 ### About
 
-This repository contains a utility script for generating mobile notifications. The only supported service at the moment is the awesome, and free, [pushover.net](https://pushover.net). You will need an account at [pushover.net](https://pushover.net).
+This repository contains utility scripts for generating mobile notifications from a number of applications. The only supported messaging service (at the moment) is the awesome, and free, [pushover.net](https://pushover.net). You will need an account at [pushover.net](https://pushover.net). The following scripts exist:
+
+* pushover - a wrapper to send messages to the pushover service itself
+* superduper-msg - a script designed to be called by [SuperDuper!](https://www.shirt-pocket.com/SuperDuper/SuperDuperDescription.html) once a copys is complete
+
+Other notification scripts and tools will be added to this repository as they are generated. The following sections describe how to set-up and use these scripts.
+
+### pushover
+
+#### Introduction
 
 The script, imaginatively called **pushover**, can either be sourced in a script, or called directly from the command-line. Either way, it requires two environment variables—`PO_USER_TOKEN` and `PO_APP_TOKEN`—be set with values from your [pushover.net](https://pushover.net) account (see usage). The script exits if these environment variables are not set.
 
 Responses from curl and [pushover.net](https://pushover.net) are sent to stdout.
 
-### Dependencies
+#### Dependencies
 
 The following are requirements to use **pushover**:
 
 1. Requires an account at pushover.net;
 2. Requires curl.
 
-### Usage
+#### Usage
 
 Install, configure and use **pushover** in the following way:
 
@@ -45,6 +54,22 @@ export PO_APP_TOKEN=<string from pushover.net>
 ```
 sudo cp notification-utils/scripts/pushover /usr/local/bin
 ```
+
+### superduper-msg
+
+#### Introduction
+
+The excellent SuperDuper! disk cloning tool has the facility to run scripts before and after a copy operation. Here, we use the "after copy" script to send a pushover notification informing the user that the copy has been completed. However, we can't determine if the copy was successful, so one must always check for error messages from the application.
+
+#### Dependencies
+
+Requires pushover, and assumes that pushover is installed in ```/usr/local/bin```
+
+#### Usage
+
+Add the full path to ```superduper-msg``` in the SuperDuper copy configuration:
+
+![SuperDuper copy script configuration](https://github.com/jjo93sa/notification-utils/superduper-config.png)
 
 ### Support and features
 
